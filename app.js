@@ -3,6 +3,7 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+var path = require('path');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +21,7 @@ app.get("/access2", (req, res) => {
   });
 
 app.get("/access", (req, res) => {
-  res.sendFile("index.html")
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 port = process.env.PORT || 80
