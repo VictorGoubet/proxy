@@ -17,7 +17,9 @@ app.get("/", (req, res) => {
 
 
 app.get("/access2", (req, res) => {
-    res.redirect('https://www.linkedin.com/badges/profile/create?vanityname=gad-azeraf&preferredlocale=en_US&trk=public_profile-settings_badge')
+  axios.get('https://www.linkedin.com/badges/profile/create?vanityname=gad-azeraf&preferredlocale=en_US&trk=public_profile-settings_badge').then(res=>{
+    res.send(res.data)
+  })
   });
 
 app.get("/access", (req, res) => {
