@@ -20,11 +20,7 @@ app.get("/access2", (req, res) => {
   });
 
 app.get("/access", (req, res) => {
-  axios.get("https://www.linkedin.com/badges/profile/create?vanityname=gad-azeraf&preferredlocale=en_US&trk=public_profile-settings_badge").then((data) => {
-      res.send(data);
-    }).catch((error) => {
-      console.log(error.message);
-    });
+  res.sendFile("index.html")
 });
 
 port = process.env.PORT || 80
