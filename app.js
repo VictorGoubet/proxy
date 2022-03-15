@@ -11,7 +11,9 @@ app.use(cors());
 
 
 htmlToImage = async (html = "") => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+	args:['--no-sandbox']
+  });
   const page = await browser.newPage();
 
   await page.setContent(html);
@@ -34,11 +36,12 @@ app.get("/", (req, res) => {
     
   });
 
-app.get("/graphic", async (req, res) => {
-  const imageBuffer = await htmlToImage(`<div>
-                                            <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-                                            <div class="badge-base LI-profile-badge" data-locale="fr_FR" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="gad-azeraf" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://fr.linkedin.com/in/gad-azeraf?trk=profile-badge">Gad Azeraf</a></div>
-                                         </div>`);
+app.get("/get_profil", async (req, res) => {
+  	name = req.query.username
+	const imageBuffer = await htmlToImage(`<div>
+                                             	<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+                                            	<div class="badge-base LI-profile-badge" data-locale="fr_FR" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="${name}" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://fr.linkedin.com/in/${name}?trk=profile-badge">${name}</a></div>
+                                              </div>`);
   fs.writeFileSync("./image.png", imageBuffer);
   res.sendFile(path.join(__dirname, 'image.png'));
   //res.set("Content-Type", "image.png");
