@@ -45,5 +45,5 @@ app.get("/graphic", async (req, res) => {
   //res.send(imageBuffer);
 });
 
-port = process.env.PORT || 80
+port = process.env.PORT || 3000
 app.listen(port, () => console.log("server started"));
